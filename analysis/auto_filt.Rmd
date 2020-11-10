@@ -1,0 +1,18 @@
+---
+title: "Autosome Filtering"
+author: "Daniel Araujo"
+date: "2020/11/05"
+output: html_document
+---
+
+## Introduction
+
+After the genotype subset files were created, it was necessary to remove all data corresponding to autosomal chromosomes.  
+
+## 1. Removing autossomal variants
+
+```{r eval=FALSE}
+plink --bfile MESA_subset --split-x b36 --chr 23-26 --make-bed --out MESA_nonauto 
+```
+
+By using the command line above, new bim/bed/fam files were created containing only genotypes mapped to X, Y and mtDNA. Out of the 909622 initial variants, 37266 were kept (~4.01%). Additionally, ```--split-x b36``` was used to change the code of SNPs mapped to the X chromosome pseudoautosomal region using the NCBI build 36/UCSC human genome 18 boundaries.

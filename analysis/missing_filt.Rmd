@@ -1,0 +1,100 @@
+---
+title: "Missingness Filtering"
+author: "Daniel Araujo"
+date: "2020/11/05"
+output: html_document
+---
+
+## Introduction
+
+The first QC step consists of filtering out variants with low call rate.  
+
+## 1. Initial missingness rate statistics
+
+```{r eval=FALSE}
+plink --bfile MESA_nonauto --missing
+```
+The command line above was used to obtain missingness statistics before filtering. A ```--chr``` flag was also used to generate statistics for each chromosome. This command line resulted in four files:
+
+* plink.hhª
+
+* plink.imiss
+
+* plink.lmiss
+
+* plink.log
+
+ª=plink.hh output file not generated for mtDNA. 
+
+### Histograms
+
+```{r pressure, echo=FALSE}
+totallmiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\initial_stats\\total.lmiss", header=T)
+totalimiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\initial_stats\\total.imiss", header=T)
+Xchrlmiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\initial_stats\\Xchr.lmiss", header=T)
+Xchrimiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\initial_stats\\Xchr.imiss", header=T)
+Ychrlmiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\initial_stats\\Ychr.lmiss", header=T)
+Ychrimiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\initial_stats\\Ychr.imiss", header=T)
+XYchrlmiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\initial_stats\\XYchr.lmiss", header=T)
+XYchrimiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\initial_stats\\XYchr.imiss", header=T)
+Mchrlmiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\initial_stats\\Mchr.lmiss", header=T)
+Mchrimiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\initial_stats\\Mchr.imiss", header=T)
+
+hist(totallmiss$F_MISS, main="Total call rate distribution for SNPs before filtering")
+hist(totalimiss$F_MISS, main="Total distribution of individuals before filtering")
+hist(Xchrlmiss$F_MISS, main="Xchr call rate distribution for SNPs before filtering")
+hist(Xchrimiss$F_MISS, main="Xchr distribution of individuals before filtering")
+hist(Ychrlmiss$F_MISS, main="Ychr call rate distribution for SNPs before filtering")
+hist(Ychrimiss$F_MISS, main="Ychr distribution of individuals before filtering")
+hist(XYchrlmiss$F_MISS, main="XYchr call rate distribution for SNPs before filtering")
+hist(XYchrimiss$F_MISS, main="XYchr distribution of individuals before filtering")
+hist(Mchrlmiss$F_MISS, main="Mchr call rate distribution for SNPs before filtering")
+hist(Mchrimiss$F_MISS, main="Mchr distribution of individuals before filtering")
+
+```
+
+***
+
+## 2. Variants filtering
+
+```{r eval=FALSE}
+plink --bfile MESA_nonauto --geno 0.01 --make-bed --out MESA_missfilt
+```
+New bim/bed/fam files were generated filtering out variants with missing call rates above 0.01. 1113 out of 37266 (~2.99%) variants were removed. 
+
+***
+
+## 3. New missingness rate statistics
+
+```{r eval=FALSE}
+plink --bfile MESA_missfilt --missing
+```
+The command line above was used to obtain missingness statistics after filtering. A ```--chr``` flag was also used to generate statistics for each chromosome.
+
+### Histograms
+
+```{r echo=FALSE}
+filttotallmiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\filtered_geno001_stats\\total.lmiss", header=T)
+filttotalimiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\filtered_geno001_stats\\total.imiss", header=T)
+filtXchrlmiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\filtered_geno001_stats\\Xchr.lmiss", header=T)
+filtXchrimiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\filtered_geno001_stats\\Xchr.imiss", header=T)
+filtYchrlmiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\filtered_geno001_stats\\Ychr.lmiss", header=T)
+filtYchrimiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\filtered_geno001_stats\\Ychr.imiss", header=T)
+filtXYchrlmiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\filtered_geno001_stats\\XYchr.lmiss", header=T)
+filtXYchrimiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\filtered_geno001_stats\\XYchr.imiss", header=T)
+filtMchrlmiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\filtered_geno001_stats\\Mchr.lmiss", header=T)
+filtMchrimiss <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\Missingness\\filtered_geno001_stats\\Mchr.imiss", header=T)
+
+hist(filttotallmiss$F_MISS, main="Total call rate distribution for SNPs after filtering")
+hist(filttotalimiss$F_MISS, main="Total distribution of individuals after filtering")
+hist(filtXchrlmiss$F_MISS, main="Xchr call rate distribution for SNPs after filtering")
+hist(filtXchrimiss$F_MISS, main="Xchr distribution of individuals after filtering")
+hist(filtYchrlmiss$F_MISS, main="Ychr call rate distribution for SNPs after filtering")
+hist(filtYchrimiss$F_MISS, main="Ychr distribution of individuals after filtering")
+hist(filtXYchrlmiss$F_MISS, main="XYchr call rate distribution for SNPs after filtering")
+hist(filtXYchrimiss$F_MISS, main="XYchr distribution of individuals after filtering")
+hist(filtMchrlmiss$F_MISS, main="Mchr call rate distribution for SNPs after filtering")
+hist(filtMchrimiss$F_MISS, main="Mchr distribution of individuals after filtering")
+
+```
+
