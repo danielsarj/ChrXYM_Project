@@ -8,12 +8,14 @@ editor_options:
   chunk_output_type: console
 ---
 
-Welcome to my research website
+Welcome to my research website.
 
-In this page I'll be posting updates on the project. You can click on the following links to go to their respective pages. Note that pages will be listed according to their publishing order (from oldest to newest). If you have any questions, contact me 
+In this page I'll be posting updates on the project. You can click on the following links to go to their respective pages. Note that pages will be listed according to their publishing order (from oldest to newest). If you have any questions, contact me.
 
-00.[Autosome filtering](auto_filt.html) _NEW_
+00. [Autosome filtering](auto_filt.html)
 
-01.[Missingness filtering](missing_filt.html) _NEW_
+01. [Missingness filtering](missing_filt.html)
+
+02. [Principal Component Analysis (PC-AiR)](pcair.html)
 
 Thank you.
