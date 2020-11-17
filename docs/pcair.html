@@ -9,9 +9,11 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
+<meta name="author" content="Daniel Araujo" />
 
+<meta name="date" content="2020-11-17" />
 
-<title>Home</title>
+<title>Principal Component Analysis (PC-AiR)</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -19,6 +21,9 @@
 <script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
 <link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
 <script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
@@ -258,6 +263,69 @@ $(document).ready(function () {
 
 
 
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
 
 </head>
 
@@ -265,6 +333,16 @@ $(document).ready(function () {
 
 
 <div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
 
 
 
@@ -308,7 +386,9 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">Home</h1>
+<h1 class="title toc-ignore">Principal Component Analysis (PC-AiR)</h1>
+<h4 class="author">Daniel Araujo</h4>
+<h4 class="date">2020-11-17</h4>
 
 </div>
 
@@ -336,7 +416,7 @@ $(document).ready(function () {
 <strong>Last updated:</strong> 2020-11-17
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
 </p>
 <p>
 <strong>Knit directory:</strong> <code>ChrXYM_Project/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -358,6 +438,66 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
 <div class="panel-body">
 <p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20201110code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20201110)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20201110code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20201110)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
 </div>
 </div>
 </div>
@@ -398,7 +538,7 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <div id="versions" class="tab-pane fade">
 
 <p>
-These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/index.Rmd</code>) and HTML (<code>docs/index.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/pcair.Rmd</code>) and HTML (<code>docs/pcair.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
@@ -427,7 +567,7 @@ Message
 Rmd
 </td>
 <td>
-<a href="https://github.com/danielsarj/ChrXYM_Project/blob/aa03f8b95ffd91fd81e3dc0472ed14a7488393fb/analysis/index.Rmd" target="_blank">aa03f8b</a>
+<a href="https://github.com/danielsarj/ChrXYM_Project/blob/aa03f8b95ffd91fd81e3dc0472ed14a7488393fb/analysis/pcair.Rmd" target="_blank">aa03f8b</a>
 </td>
 <td>
 Daniel Araujo
@@ -439,57 +579,6 @@ Daniel Araujo
 Publish PCAiR
 </td>
 </tr>
-<tr>
-<td>
-html
-</td>
-<td>
-<a href="https://rawcdn.githack.com/danielsarj/ChrXYM_Project/6ea38d175b87fcb5bffea47c8daedca421e5e365/docs/index.html" target="_blank">6ea38d1</a>
-</td>
-<td>
-Daniel Araujo
-</td>
-<td>
-2020-11-10
-</td>
-<td>
-Build site.
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/danielsarj/ChrXYM_Project/blob/c55a045f1f27c82d34679c864ad2a479388354b5/analysis/index.Rmd" target="_blank">c55a045</a>
-</td>
-<td>
-Daniel Araujo
-</td>
-<td>
-2020-11-10
-</td>
-<td>
-Start project
-</td>
-</tr>
-<tr>
-<td>
-Rmd
-</td>
-<td>
-<a href="https://github.com/danielsarj/ChrXYM_Project/blob/78ce094410b4022a06d960a4e8df8da01aadf4ed/analysis/index.Rmd" target="_blank">78ce094</a>
-</td>
-<td>
-Daniel Araujo
-</td>
-<td>
-2020-11-10
-</td>
-<td>
-Start workflowr project.
-</td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -497,14 +586,107 @@ Start workflowr project.
 </div>
 </div>
 </div>
-<p>Welcome to my research website.</p>
-<p>In this page I’ll be posting updates on the project. You can click on the following links to go to their respective pages. Note that pages will be listed according to their publishing order (from oldest to newest). If you have any questions, contact me.</p>
-<ol start="0" style="list-style-type: decimal">
-<li><p><a href="auto_filt.html">Autosome filtering</a></p></li>
-<li><p><a href="missing_filt.html">Missingness filtering</a></p></li>
-<li><p><a href="pcair.html">Principal Component Analysis (PC-AiR)</a></p></li>
-</ol>
-<p>Thank you.</p>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>To infer and analyze population structure, I performed PC-AiR at the autosomal genotype data. PC-AiR is a method used to perform a PCA accounting for relatedness among individuals, thus accurately capturing population structure.</p>
+</div>
+<div id="autosomal-genotype-data-qc" class="section level2">
+<h2>1. Autosomal genotype data QC</h2>
+<pre class="r"><code>plink --bfile MESA_subset --chr 1-22 --geno 0.01 --hwe 0.000001 --maf 0.05 --make-bed --out PCAir/MESA_auto_filt</code></pre>
+<p>The command line above was used to create new bim/bed/fam files containing genotype data corresponding to autosomal chromosomes (hence the <code>--chr 1-22</code> flag). Variants with missing call rates &gt; 0.01 (<code>--geno 0.01</code>), HWE p-value &lt; 10^-6 (<code>--hwe 0.000001</code>), and minor allele frequency &lt; 0.05 (<code>--maf 0.05</code>) were removed.</p>
+</div>
+<div id="performing-pc-air" class="section level2">
+<h2>2. Performing PC-AiR</h2>
+<p>The following R script code was ran on the output created in the previous step. The script is a compiled file of four other R scripts written by Ryan and it’s divided into four parts: i) conversion of PLINK files into GDS files, ii) estimation of kinship coefficient, iii) LD pruning, and iv) running PC-AiR.</p>
+<pre class="r"><code>## Script to run PC-Air
+
+# Loading libraries
+library(GENESIS)
+library(SNPRelate)
+library(GWASTools)
+library(dplyr)
+library(tibble)
+library(data.table)
+
+# 01. Make GDS
+snpgdsBED2GDS(bed.fn=&quot;/home/daniel/MESA_genotypes_subset/PCAir/MESA_auto_filt.bed&quot;,
+              bim.fn=&quot;/home/daniel/MESA_genotypes_subset/PCAir/MESA_auto_filt.bim&quot;,
+              fam.fn=&quot;/home/daniel/MESA_genotypes_subset/PCAir/MESA_auto_filt.fam&quot;,
+              out.gdsfn=&quot;/home/daniel/MESA_genotypes_subset/PCAir/00autosome.gds&quot;)
+
+# 02. King estimation
+gdsfile&lt;-&quot;/home/daniel/MESA_genotypes_subset/PCAir/00autosome.gds&quot;
+gds &lt;- snpgdsOpen(gdsfile)
+king&lt;-snpgdsIBDKING(gds)
+kingMat&lt;-king$kinship
+snpgdsClose(gds)
+saveRDS(king,file=&quot;/home/daniel/MESA_genotypes_subset/PCAir/King_matrix.RDS&quot;)
+
+# 03. LD prune
+gdsfile&lt;-&quot;/home/daniel/MESA_genotypes_subset/PCAir/00autosome.gds&quot;
+gds &lt;- snpgdsOpen(gdsfile)
+snpset &lt;- snpgdsLDpruning(gds, method=&quot;corr&quot;, slide.max.bp=10e6,
+                          ld.threshold=sqrt(0.3), verbose=FALSE)
+pruned &lt;- unlist(snpset, use.names=FALSE)
+saveRDS(pruned,&quot;/home/daniel/MESA_genotypes_subset/PCAir/pruned_set.RDS&quot;)
+snpgdsClose(gds)
+
+# 04. Run PCAIR
+gdsfile&lt;-&quot;/home/daniel/MESA_genotypes_subset/PCAir/00autosome.gds&quot;
+pruned&lt;-readRDS(&quot;/home/daniel/MESA_genotypes_subset/PCAir/pruned_set.RDS&quot;)
+king&lt;-readRDS(&quot;/home/daniel/MESA_genotypes_subset/PCAir/King_matrix.RDS&quot;)
+kingMat&lt;-king$kinship
+colnames(kingMat)&lt;-king$sample.id
+row.names(kingMat)&lt;-king$sample.id
+geno &lt;- GdsGenotypeReader(filename = gdsfile)
+genoData &lt;- GenotypeData(geno)
+mypcair &lt;- pcair(genoData, kinobj = kingMat, divobj = kingMat,
+                 snp.include = pruned)
+png(&quot;/home/daniel/MESA_genotypes_subset/PCAir/PCAIR_PC1_VS_PC2.png&quot;)
+plot(mypcair)
+dev.off()
+eigenvec&lt;-mypcair$vectors %&gt;% as.data.frame() %&gt;% rownames_to_column(var=&quot;sample_id&quot;)
+str(eigenvec)
+val&lt;-mypcair$values %&gt;% as.data.frame()
+fwrite(eigenvec,&quot;/home/daniel/MESA_genotypes_subset/PCAir/PCAIR.eigenvec&quot;,col.names = T,row.names = F,sep=&#39;\t&#39;)
+fwrite(val,&quot;/home/daniel/MESA_genotypes_subset/PCAir/PCAIR.eigenval&quot;)</code></pre>
+<p>The plot generated by the script is as follows: <img src="assets/PCAIR_PC1_VS_PC2.png" alt="PCAIR PC1 vs PC2" /></p>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 4.0.2 (2020-06-22)
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+Running under: Windows 10 x64 (build 18363)
+
+Matrix products: default
+
+locale:
+[1] LC_COLLATE=Portuguese_Brazil.1252  LC_CTYPE=Portuguese_Brazil.1252   
+[3] LC_MONETARY=Portuguese_Brazil.1252 LC_NUMERIC=C                      
+[5] LC_TIME=Portuguese_Brazil.1252    
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+[1] workflowr_1.6.2
+
+loaded via a namespace (and not attached):
+ [1] Rcpp_1.0.5       rstudioapi_0.11  whisker_0.4      knitr_1.29      
+ [5] magrittr_1.5     R6_2.4.1         rlang_0.4.7      stringr_1.4.0   
+ [9] tools_4.0.2      xfun_0.16        git2r_0.27.1     htmltools_0.5.0 
+[13] ellipsis_0.3.1   rprojroot_1.3-2  yaml_2.2.1       digest_0.6.25   
+[17] tibble_3.0.1     lifecycle_0.2.0  crayon_1.3.4     later_1.1.0.1   
+[21] vctrs_0.3.4      promises_1.1.1   fs_1.5.0         glue_1.4.2      
+[25] evaluate_0.14    rmarkdown_2.3    stringi_1.4.6    compiler_4.0.2  
+[29] pillar_1.4.6     backports_1.1.10 httpuv_1.5.4     pkgconfig_2.0.3 </code></pre>
+</div>
+</div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
@@ -520,6 +702,8 @@ footer is added to webpages before the MathJax javascript. -->
 </script>
 
 
+</div>
+</div>
 
 </div>
 
@@ -552,6 +736,32 @@ $(document).ready(function () {
 
 <!-- code folding -->
 
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
 
 <!-- dynamically load mathjax for compatibility with self-contained -->
 <script>
