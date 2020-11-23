@@ -18,4 +18,6 @@ In this page I'll be posting updates on the project. You can click on the follow
 
 02. [Principal Component Analysis (PC-AiR)](pcair.html)
 
+03. [Hardy-Weinberg equilibrium filtering](hwe_filtering.html)
+
 Thank you.

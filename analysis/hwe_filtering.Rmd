@@ -1,0 +1,31 @@
+---
+title: "HWE filtering"
+author: "Daniel Araujo"
+date: "2020-11-23"
+output: html_document
+---
+
+## Introduction
+
+In this step of the QC pipeline, we aim to remove variants not in Hardy-Weinberg equilibrium. 
+
+## 1. Applying the HWE filter
+
+```{r eval=FALSE}
+plink --bfile MESA_missfilt --hwe 0.000001 --make-bed --out MESA_hwefilt
+```
+The ```--hwe 0.000001``` flag removes SNPs with p-value below 0.000001. 2955 variants removed due to Hardy-Weinberg exact test (2936 in Xchr and 19 in XYchr). 26605 variants were left. 
+
+We should only apply the HWE filter in variants found in the Xchr of females and in the pseudoautosomal region (in males and females), however it is not necessary to make any changes in the dataset because PLINK automatically applies the filter only in the correct regions. This information was confirmed by comparing the total number of SNPs in Ychr and Mchr before and after filtering. Additionally, applying the HWE filter with or without using the ```--filter-females``` flag results in the same quantity of Xchr variants, suggesting that Xchr-SNPs in males are not filtered out. 
+
+## 2. HWE P-value distribution 
+```{r eval=FALSE}
+plink --bfile MESA_hwefilt --hardy --out hwe_stats
+```
+Summary statistics of all HWE rates were obtained by using the command line above. 
+
+### Histogram
+```{r echo=FALSE}
+hwe_stats <- read.table("\\Users\\danie\\OneDrive\\Documentos\\LUC_Master\\Thesis\\HWE_stats\\hwe_stats.hwe", header=T)
+hist(hwe_stats$P)
+```
