@@ -1,13 +1,13 @@
 ---
 title: "Missingness Filtering"
 author: "Daniel Araujo"
-date: "2020/11/05"
+date: "2020-11-23"
 output: html_document
 ---
 
 ## Introduction
 
-The first QC step consists of filtering out variants with low call rate.  
+The first QC step consists of filtering out variants with low call rate and minor allele frequency.  
 
 ## 1. Initial missingness rate statistics
 
@@ -58,9 +58,9 @@ hist(Mchrimiss$F_MISS, main="Mchr distribution of individuals before filtering")
 ## 2. Variants filtering
 
 ```{r eval=FALSE}
-plink --bfile MESA_nonauto --geno 0.01 --make-bed --out MESA_missfilt
+plink --bfile MESA_nonauto --geno 0.01 --maf 0.05 --make-bed --out MESA_missfilt
 ```
-New bim/bed/fam files were generated filtering out variants with missing call rates above 0.01. 1113 out of 37266 (~2.99%) variants were removed. 
+New bim/bed/fam files were generated filtering out variants with missing call rates above 0.01 and minor allele frequency below 0.05. 1113 and 6593 variants were removed due to missing call rate and minor allele frequency threshold, respectively. 29560 variants were left. 
 
 ***
 
