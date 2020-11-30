@@ -76,13 +76,22 @@ fwrite(val,"PCAIR.eigenval")
 ```
 PCA plots were generated to each individual population and to the full dataset. They are as follows:
 
-![PC for the full dataset](assets/PCAIR_PC1_VS_PC2.png)
+![](assets/PCAIR_PC1_VS_PC2.png)
+
 **PC Plot 1.** Full dataset
-![PC for the AFA pop](assets/AFA_PCAIR_PC1_VS_PC2.png)
+
+![](assets/AFA_PCAIR_PC1_VS_PC2.png)
+
 **PC Plot 2.** AFA pop
-![PC for the CAU pop](assets/CAU_PCAIR_PC1_VS_PC2.png)
+
+![](assets/CAU_PCAIR_PC1_VS_PC2.png)
+
 **PC Plot 3.** CAU pop
-![PC for the CHN pop](assets/CHN_PCAIR_PC1_VS_PC2.png)
+
+![](assets/CHN_PCAIR_PC1_VS_PC2.png)
+
 **PC Plot 4.** CHN pop
-![PC for the HIS pop](assets/HIS_PCAIR_PC1_VS_PC2.png)
+
+![](assets/HIS_PCAIR_PC1_VS_PC2.png)
+
 **PC Plot 5.** HIS pop
