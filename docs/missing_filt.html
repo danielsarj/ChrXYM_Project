@@ -11,7 +11,7 @@
 
 <meta name="author" content="Daniel Araujo" />
 
-<meta name="date" content="2020-11-23" />
+<meta name="date" content="2020-11-30" />
 
 <title>Missingness Filtering</title>
 
@@ -388,7 +388,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">Missingness Filtering</h1>
 <h4 class="author">Daniel Araujo</h4>
-<h4 class="date">2020-11-23</h4>
+<h4 class="date">2020-11-30</h4>
 
 </div>
 
@@ -413,7 +413,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2020-11-23
+<strong>Last updated:</strong> 2020-11-30
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -504,16 +504,16 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomdanielsarjChrXYMProjecttree0f33384fb94d1563a130bc3277aca84e72a6fbc0targetblank0f33384a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/danielsarj/ChrXYM_Project/tree/0f33384fb94d1563a130bc3277aca84e72a6fbc0" target="_blank">0f33384</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomdanielsarjChrXYMProjecttreed1d885e882ebdb898db21096a5d9df7ea7b80625targetblankd1d885ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/danielsarj/ChrXYM_Project/tree/d1d885e882ebdb898db21096a5d9df7ea7b80625" target="_blank">d1d885e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomdanielsarjChrXYMProjecttree0f33384fb94d1563a130bc3277aca84e72a6fbc0targetblank0f33384a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomdanielsarjChrXYMProjecttreed1d885e882ebdb898db21096a5d9df7ea7b80625targetblankd1d885ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/danielsarj/ChrXYM_Project/tree/0f33384fb94d1563a130bc3277aca84e72a6fbc0" target="_blank">0f33384</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/danielsarj/ChrXYM_Project/tree/d1d885e882ebdb898db21096a5d9df7ea7b80625" target="_blank">d1d885e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -562,6 +562,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/danielsarj/ChrXYM_Project/blob/d1d885e882ebdb898db21096a5d9df7ea7b80625/analysis/missing_filt.Rmd" target="_blank">d1d885e</a>
+</td>
+<td>
+Daniel Araujo
+</td>
+<td>
+2020-11-30
+</td>
+<td>
+Update MAF filter value
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/danielsarj/ChrXYM_Project/ee79547dfd942a946c1cf047f681bc914f1bc644/docs/missing_filt.html" target="_blank">ee79547</a>
+</td>
+<td>
+Daniel Araujo
+</td>
+<td>
+2020-11-23
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -643,8 +677,8 @@ Start project
 </div>
 <div id="variants-filtering" class="section level2">
 <h2>2. Variants filtering</h2>
-<pre class="r"><code>plink --bfile MESA_nonauto --geno 0.01 --maf 0.05 --make-bed --out MESA_missfilt</code></pre>
-<p>New bim/bed/fam files were generated filtering out variants with missing call rates above 0.01 and minor allele frequency below 0.05. 1113 and 6593 variants were removed due to missing call rate and minor allele frequency threshold, respectively. 29560 variants were left.</p>
+<pre class="r"><code>plink --bfile MESA_nonauto --geno 0.01 --maf 0.01 --make-bed --out MESA_missfilt</code></pre>
+<p>New bim/bed/fam files were generated filtering out variants with missing call rates above 0.01 and minor allele frequency below 0.01. 1113 and 1675 variants were removed due to missing call rate and minor allele frequency threshold, respectively. 34478 variants were left.</p>
 <hr />
 </div>
 <div id="new-missingness-rate-statistics" class="section level2">
