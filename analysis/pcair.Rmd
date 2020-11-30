@@ -15,10 +15,17 @@ To infer and analyze population structure, I performed PC-AiR at the autosomal g
 ```{r eval=FALSE}
 plink --bfile MESA_subset --chr 1-22 --geno 0.01 --hwe 0.000001 --maf 0.05 --make-bed --out PCAir/MESA_auto_filt
 ```
-The command line above was used to create new bim/bed/fam files containing genotype data corresponding to autosomal chromosomes (hence the ```--chr 1-22``` flag). Variants with missing call rates > 0.01 (```--geno 0.01```), HWE p-value < 10^-6 (```--hwe 0.000001```), and minor allele frequency < 0.05 (```--maf 0.05```) were removed. 
+The command line above was used to create new bim/bed/fam files containing genotype data corresponding to autosomal chromosomes (hence the `--chr 1-22` flag). Variants with missing call rates > 0.01 (```--geno 0.01```), HWE p-value < 10^-6 (```--hwe 0.000001```), and minor allele frequency < 0.05 (```--maf 0.05```) were removed. 
 
-## 2. Performing PC-AiR
-The following R script code was ran on the output created in the previous step. The script is a compiled file of four other R scripts written by Ryan and it's divided into four parts: i) conversion of PLINK files into GDS files, ii) estimation of kinship coefficient, iii) LD pruning, and iv) running PC-AiR. 
+## 2. Separating populations
+```{r eval=FALSE}
+plink --bfile SHARE_MESA_c1 --keep /IDs_files/<pop>subset_ids.txt --make-bed --out MESA_subset_<pop>
+
+```
+To perform PC-AiR in each population, a set of PLINK files was created for each one (AFA, CAU, CHN, HIS). To do this I used the `--keep` flag followed by the path to a file containing the individuals' IDs - all .txt files used to do this step can be found on `/home/daniel/MESA_genotypes_subset/IDs_files`.
+
+## 3. Performing PC-AiR
+The following R script code was performed on the outputs created in the previous step. The script is a compiled file of four other R scripts written by Ryan and it's divided into four parts: i) conversion of PLINK files into GDS files, ii) estimation of kinship coefficient, iii) LD pruning, and iv) running PC-AiR. 
 
 ```{r eval=FALSE}
 ## Script to run PC-Air
