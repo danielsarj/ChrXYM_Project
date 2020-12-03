@@ -1,7 +1,7 @@
 ---
 title: "Principal Component Analysis (PC-AiR)"
 author: "Daniel Araujo"
-date: "2020-11-23"
+date: "2020-12-03"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
@@ -20,7 +20,6 @@ The command line above was used to create new bim/bed/fam files containing genot
 ## 2. Separating populations
 ```{r eval=FALSE}
 plink --bfile SHARE_MESA_c1 --keep /IDs_files/<pop>subset_ids.txt --make-bed --out MESA_subset_<pop>
-
 ```
 To perform PC-AiR in each population, a set of PLINK files was created for each one (AFA, CAU, CHN, HIS). To do this I used the `--keep` flag followed by the path to a file containing the individuals' IDs - all .txt files used to do this step can be found on `/home/daniel/MESA_genotypes_subset/IDs_files`.
 
@@ -81,24 +80,71 @@ val<-mypcair$values %>% as.data.frame()
 fwrite(eigenvec,"PCAIR.eigenvec",col.names = T,row.names = F,sep='\t')
 fwrite(val,"PCAIR.eigenval")
 ```
-PCA plots were generated to each individual population and to the full dataset. They are as follows:
 
-![](assets/PCAIR_PC1_VS_PC2.png)
+## 4. PCA plots
 
-**PC Plot 1.** Full dataset
+For better visualization, the PCA plot for all populations together was colored in R by population using the following code:
 
-![](assets/AFA_PCAIR_PC1_VS_PC2.png)
+```{r eval=FALSE}
+library(ggplot2) #loading ggplot
 
-**PC Plot 2.** AFA pop
+eigenvec <- read.table("updated_eigenvec.txt", header=T) #reads the eigenvec file
 
-![](assets/CAU_PCAIR_PC1_VS_PC2.png)
+ggplot(eigenvec, aes(x=V1,y=V2,color=pop)) + geom_point() +
+  labs(title="PC1 vs PC2") #plots graph
+```
 
-**PC Plot 3.** CAU pop
+Furthermore, plots showing how much of the variation each PC accounts for were made using the following R code:
 
-![](assets/CHN_PCAIR_PC1_VS_PC2.png)
+```{r eval=FALSE}
+library(ggplot2) #loading ggplot
 
-**PC Plot 4.** CHN pop
+eigenval <- read.table("ALL_PCAIR.eigenval", header=T, nrows=10) #reads the first 10 rows of the eigenval file
+eigenval$variation_perc <- eigenval$./sum(eigenval$.) #creates a new column in which absolute values are now proportions
+sum(eigenval$variation_perc) #double-check to see if the new column adds up to 1
 
-![](assets/HIS_PCAIR_PC1_VS_PC2.png)
+ggplot(eigenval, aes(x=c(1:10),y=variation_perc)) + geom_point() +
+  geom_line() + xlab("PC") + ylab("Variation") + 
+  scale_x_continuous(breaks = 1:10) +
+  labs(title="Proportion of variance explained") #plots graph
+```
 
-**PC Plot 5.** HIS pop
+Plots are as follows:
+
+### ALL
+
+![1. PCA plot for ALL pops](assets/ALL_PCA_colored_pop.png)
+
+![2. Variation explained by the first 10 PCs](assets/ALL_PCprop.png)
+
+***
+
+### AFA
+
+![3. PCA plot for AFA pop](assets/AFA_PCAIR_PC1_VS_PC2.png)
+
+![4. Variation explained by the first 10 PCs](assets/AFA_PCprop.png)
+
+***
+
+### CAU
+
+![5. PCA plot for CAU pop](assets/CAU_PCAIR_PC1_VS_PC2.png)
+
+![6. Variation explained by the first 10 PCs](assets/CAU_PCprop.png)
+
+***
+
+### CHN
+
+![7. PCA plot for CHN pop](assets/CHN_PCAIR_PC1_VS_PC2.png)
+
+![8. Variation explained by the first 10 PCs](assets/CHN_PCprop.png)
+
+***
+
+### HIS
+
+![9. PCA plot for HIS pop](assets/HIS_PCAIR_PC1_VS_PC2.png)
+
+![10. Variation explained by the first 10 PCs](assets/HIS_PCprop.png)
