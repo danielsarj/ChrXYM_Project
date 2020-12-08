@@ -1,7 +1,7 @@
 ---
 title: "Principal Component Analysis (PC-AiR)"
 author: "Daniel Araujo"
-date: "2020-12-03"
+date: "2020-12-08"
 output: workflowr::wflow_html
 editor_options:
   chunk_output_type: console
@@ -81,32 +81,46 @@ fwrite(eigenvec,"PCAIR.eigenvec",col.names = T,row.names = F,sep='\t')
 fwrite(val,"PCAIR.eigenval")
 ```
 
-## 4. PCA plots
+## 4. Computing identity by descent (IBD)
+
+To investigate relatedness among individuals in our dataset, we decided to compute identity by descent in each individual population. For this, the following code was used:
+
+```{r eval=FALSE}
+plink --bfile <pop>_MESA_autofilt --indep-pairwise 50 5 0.2 --out <pop>_pruned && plink --bfile <pop>_MESA_autofilt --extract <pop>_pruned.prune.in --genome --out <pop>_IBD_genome
+```
+
+By using the command line above, we firstly perform a LD-based SNP pruning using `--indep-pairwise` followed by the window size in Kb, step size, and variance inflation factor. Then, using the output of the previous command, we perform IBD estimation using the `--genome` flag.
+
+## 5. PCA, Scree, and IBD plots
 
 For better visualization, the PCA plot for all populations together was colored in R by population using the following code:
 
 ```{r eval=FALSE}
 library(ggplot2) #loading ggplot
-
 eigenvec <- read.table("updated_eigenvec.txt", header=T) #reads the eigenvec file
-
 ggplot(eigenvec, aes(x=V1,y=V2,color=pop)) + geom_point() +
   labs(title="PC1 vs PC2") #plots graph
 ```
 
-Furthermore, plots showing how much of the variation each PC accounts for were made using the following R code:
+Scree plots showing how much of the variation each PC accounts for were made using the following R code:
 
 ```{r eval=FALSE}
 library(ggplot2) #loading ggplot
-
-eigenval <- read.table("ALL_PCAIR.eigenval", header=T, nrows=10) #reads the first 10 rows of the eigenval file
+eigenval <- read.table("<pop>_PCAIR.eigenval", header=T, nrows=10) #reads the first 10 rows of the eigenval file
 eigenval$variation_perc <- eigenval$./sum(eigenval$.) #creates a new column in which absolute values are now proportions
 sum(eigenval$variation_perc) #double-check to see if the new column adds up to 1
-
 ggplot(eigenval, aes(x=c(1:10),y=variation_perc)) + geom_point() +
   geom_line() + xlab("PC") + ylab("Variation") + 
   scale_x_continuous(breaks = 1:10) +
   labs(title="Proportion of variance explained") #plots graph
+```
+
+IBD plots were generated for each population using the following R code:
+
+```{r eval=FALSE}
+library(ggplot2) #loading ggplot
+<pop>_ibd <- read.table("<pop>_IBD_genome.genome", header=T) #reads .genome file
+ggplot(AFA_ibd, aes(x=Z0,y=Z1,color=RT)) + geom_point() + xlim(0:1) + ylim(0:1) #plots graph
 ```
 
 Plots are as follows:
@@ -125,26 +139,36 @@ Plots are as follows:
 
 ![4. Variation explained by the first 10 PCs](assets/AFA_PCprop.png)
 
+![5. IBD plot for AFA pop](assets/AFA_IBD.png)
+
+
 ***
 
 ### CAU
 
-![5. PCA plot for CAU pop](assets/CAU_PCAIR_PC1_VS_PC2.png)
+![6. PCA plot for CAU pop](assets/CAU_PCAIR_PC1_VS_PC2.png)
 
-![6. Variation explained by the first 10 PCs](assets/CAU_PCprop.png)
+![7. Variation explained by the first 10 PCs](assets/CAU_PCprop.png)
+
+![8. IBD plot for CAU pop](assets/CAU_IBD.png)
 
 ***
 
 ### CHN
 
-![7. PCA plot for CHN pop](assets/CHN_PCAIR_PC1_VS_PC2.png)
+![9. PCA plot for CHN pop](assets/CHN_PCAIR_PC1_VS_PC2.png)
 
-![8. Variation explained by the first 10 PCs](assets/CHN_PCprop.png)
+![10. Variation explained by the first 10 PCs](assets/CHN_PCprop.png)
+
+![11. IBD plot for CHN pop](assets/CHN_IBD.png)
+
 
 ***
 
 ### HIS
 
-![9. PCA plot for HIS pop](assets/HIS_PCAIR_PC1_VS_PC2.png)
+![12. PCA plot for HIS pop](assets/HIS_PCAIR_PC1_VS_PC2.png)
 
-![10. Variation explained by the first 10 PCs](assets/HIS_PCprop.png)
+![13. Variation explained by the first 10 PCs](assets/HIS_PCprop.png)
+
+![14. IBD plot for HIS pop](assets/HIS_IBD.png)
