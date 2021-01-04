@@ -1,0 +1,41 @@
+---
+title: "mtDNA haplogroup matching"
+author: "Daniel Araujo"
+date: "2021-01-04"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Mitochondrial haplogroups are defined by sets of mitochondrial SNPs shared by many individuals, formed as consequence of the accumulation of mutations through maternal lineages. They are often analyzed in human ancestry studies.
+
+## 1. Haplogroup matching
+```{r eval=FALSE}
+plink --bfile MESA_hwefilt --chr 26 --out MchrSNPs --recode vcf
+```
+The command line above was used to create a vcf file containg the mitochondrial SNPs of every individual. Then, using [HaploGrep](https://haplogrep.i-med.ac.at/app/index.html), haplogroups were determined.
+
+I chose HaploGrep because it works with VCF files and also because it seems like a popular tool (some of the papers that used it: [1](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5094714/), [2](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0222284), [3](https://doi.org/10.1093/hmg/ddz011)).
+
+## 2. Results
+
+Haplogroup matching results were plotted on R using the following code. Individuals were colored according to their respective populations.
+
+```{r eval=FALSE}
+library(ggplot2) #Loading library
+data2 <- read.csv("mchr_haplotypes.csv",sep=";",header=F) #Loading dataset
+data2$occurence <- 1
+ggplot(data2,aes(V2,occurence,fill=V3))+
+  geom_bar(stat="identity",position="stack")+
+  xlab("Haplogroups")+ylab("Number of individuals")+labs(title="mtDNA haplogroup matching", fill="pop")
+```
+
+![1. mtDNA haplogroup matching](assets/mtDNA_haplogroup.png)
+
+As it's possible to see in the graph above, 4 different haplogroups were identified in our dataset, with most of the individuals belong to the H2a2a1 haplogroup. However, I found the result rather odd because I didn't expect CNH, EUR and HIS to be clustered together. So I decided to take a look at the haplogroup matching quality scores provided by HaploGrep. 
+
+![2. mtDNA haplogroup matching quality scores](assets/mtDNA_haplo_qualityscore.png)
+
+As you can see, quality scores were really low, suggesting that the haplogroup matching perfomed isn't reliable. In my opinion, it seems like most of the individuals were classified into the "H2a2a1" haplogroup because it is the "default" haplogroup. My guess is that we don't have enough SNPs to provide a trustworthy result - we possess 98 mitochondrial SNPs, whereas the papers previously mentioned were working with [199](https://doi.org/10.1093/hmg/ddz011) and [314](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0222284) SNPs.

@@ -1,0 +1,50 @@
+---
+title: "Ychr haplogroup matching"
+author: "Daniel Araujo"
+date: "2021-01-04"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Introduction
+
+Y chromosome haplogroups are defined by sets of SNPs shared by many individuals, formed as consequence of the accumulation of mutations through paternal lineages. They are often analyzed in human ancestry studies.
+
+## 1. Haplogroup matching
+```{r eval=FALSE}
+plink --bfile MESA_hwefilt --chr 24 --filter-males --out Ychrhaplo --recode --transpose
+```
+The command line above was used to create tped and tpam files. Tped file was converted to QCall format using a python script provided by [Yfitter](https://arxiv.org/abs/1407.7988), which was the software utilized to determine haplogroups.
+
+I chose Yfitter because it works with SNPs, whereas some Y-chromosome haplogroup matching softwares use short tandem repeats. Some of the papers that also used it: [1](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5793196/), [2](https://www.nature.com/articles/ncomms9912), [3](https://www.sciencedirect.com/science/article/pii/S0092867418313801).
+
+## 2. Results
+
+Out of the 477 males in our dataset, 23 individuals were removed because they did not have enough SNPs to reliably determine haplogroup. Resulting haplogroup matching results were plotted on R using the following code. Individuals were colored according to their respective populations.
+
+```{r eval=FALSE}
+library(ggplot2) #Loading library
+data <- read.table("Y_majorhaplo_pop.txt",header=F) #Loading dataset
+data$occurence <- 1
+ggplot(data,aes(V2,occurence,fill=V3))+
+  geom_bar(stat="identity",position="stack")+
+  xlab("Haplogroups")+ylab("Number of individuals")+labs(title="Ychr haplogroup matching", fill="pop")
+```
+
+![1. Ychr haplogroup matching](assets/Ychr_haplogroup.png)
+
+As it's possible to see in the graph above, 8 different major Ychr haplogroups were identified in our dataset. Haplogroups marked with an * means that those haplogroups are "umbrella" haplogroups (for instance, DE* haplogroup is formed by D and E haplogroups; NO* is formed by N and O haplogroups; P* is formed by Q and R haplogroups). According to the reference phylogeny for the human Y chromosome made by [PhyloTree](http://www.phylotree.org/Y/tree/index.htm), I built the following table:
+
+Haplogroup|Predominantly present in
+--------------|------------------
+A | Central Africa, West Africa, Southern Africa, East Africa
+DE* | East Asia (+E Haplogroup)
+E | Africa, West Asia, Southern Europe
+I | Europe, West Asia
+NO* | Northern Asia, Northern Europe (+O Haplogroup)
+O | East Asia, Southeast Asia
+P* | Northern Asia, Central Asia, Americas (+R Haplogroup)
+R | Europe, West Asia, Central Asia, South Asia, North Africa, Central Africa
+
+Y chromosome haplogroups don't seem as geographically confined as I had initially thought. Some haplogroups, such as E, I and R, can be found in more than one continent. 

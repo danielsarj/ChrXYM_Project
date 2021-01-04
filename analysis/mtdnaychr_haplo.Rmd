@@ -1,0 +1,11 @@
+---
+title: "mtDNA & Ychr haplogroup matching"
+author: "Daniel Araujo"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
+---
+
+## Click [HERE](mchr_haplo.html) to see the mtDNA haplogroup matching page
+
+## Click [HERE](ychr_haplo.html) to see the Ychr haplogroup matching page
