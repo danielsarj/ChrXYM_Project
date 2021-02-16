@@ -1,0 +1,40 @@
+---
+title: "LiftOver tests"
+author: "Daniel Araujo"
+date: "2021/02/16"
+output: html_document
+---
+
+## Introduction
+
+The motivation behind this test was to see if there would be any difference in performing LiftOver (from build h19 to h38) before or after the QC pipeline.  
+
+## 1. Pipeline
+
+With the unfiltered non-autosomal SNPs PLINK files as initial input, two different pipelines were created:
+
+1. Initial Bfiles -> LiftOver -> Missingness and MAF filtering -> HWE filtering
+
+2. Initial Bfiles -> Missingness and MAF filtering -> HWE filtering -> LiftOver 
+
+## 2. Results
+
+Pipeline 1 
+
+Chr | Initial pool | LiftOver | Missingness & MAF | HWE | Final
+----|-------------|---------|----------------------|---|------
+ChrX|36889|-120|-2698|-2928|31143
+ChrY|258|0|-63|NA|195
+ChrM|119|-3|-20|NA|96
+
+
+Pipeline 2
+
+Chr | Initial pool | Missingness & MAF | HWE | LiftOver | Final
+----|-------------|---------|----------------------|---|------
+ChrX|36889|-2704|-2945|-97|31143
+ChrY|258|-63|NA|0|195
+ChrM|119|-21|NA|-2|96
+
+
+As it is possible to see, the final result for both pipelines are the same. Thus, there is no difference in performing LiftOver either before or after the QC pipeline. The PARs of ChrX were not split because during Imputation, TOPMed server actually takes and returns the complete chromosome X file.
