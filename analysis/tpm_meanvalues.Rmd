@@ -1,42 +1,24 @@
 ---
 title: "TOPMed RNA-Seq TPM mean values"
 author: "Daniel Araujo"
-date: "2021/02/16"
+date: "2021/02/17"
 output: html_document
 ---
 
 ## Introduction
 
-Mean value of each transcript (chromosomes X, Y, M, 22) in the TOPMed RNA-Seq file was calculated, and the following histograms plotted. 
+Log-transformed mean value of each transcript (in chromosomes X, Y, M, 22) in the TOPMed RNA-Seq file was calculated, and the following violin plots made. 10e-6 was added to mean values before log-transformation because some were equal to zero.
 
-## 1. Histograms
 
-### Chr X
+## 1. Plots
 
-![1. Unfiltered ChrX TPM mean values](assets/Unfiltered_TPM_chrX.png)
+Chr|# unfiltered transcripts|# filtered transcripts left
+--|-----|--
+ChrX|5238|1996
+ChrY|829|82
+ChrM|37|15
 
-![2. Filtered ChrX TPM mean values](assets/filtered_TPM_chrX.png)
 
-***
+![1. Unfiltered TPM log mean values](assets/Unfiltered_TPM_violinplot.png)
 
-### Chr Y
-
-![3. Unfiltered ChrY TPM mean values](assets/Unfiltered_TPM_chrY.png)
-
-![4. Filtered ChrY TPM mean values](assets/filtered_TPM_chrY.png)
-
-***
-
-### Chr M
-
-![5. Unfiltered ChrM TPM mean values](assets/Unfiltered_TPM_chrM.png)
-
-![6. Filtered ChrM TPM mean values](assets/filtered_TPM_chrM.png)
-
-***
-
-### Chr 22
-
-![7. Unfiltered Chr22 TPM mean values](assets/Unfiltered_TPM_chr22.png)
-
-![8. Filtered Chr22 TPM mean values](assets/filtered_TPM_chr22.png)
+![2. Filtered TPM log mean values](assets/Filtered_TPM_violinplot.png)
